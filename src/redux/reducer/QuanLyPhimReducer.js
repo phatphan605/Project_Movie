@@ -1,44 +1,63 @@
-import { SET_DANH_SACH_PHIM } from "../actions/types/QuanLyPhimType"
+import { SET_DANH_SACH_PHIM, SET_FILM_DANG_CHIEU, SET_FILM_SAP_CHIEU } from "../actions/types/QuanLyPhimType"
 
 const stateDefault = {
-    arrFilm: [
-        {
-            "maPhim": 5163,
-            "tenPhim": "Thợ Săn Quái Vật - Monster Hunter",
-            "biDanh": "tho-san-quai-vat-monster-hunter",
-            "trailer": "https://www.youtube.com/embed/puQyZsaTtqY",
-            "hinhAnh": "https://movienew.cybersoft.edu.vn/hinhanh/tho-san-quai-vat-monster-hunter_gp01.png",
-            "moTa": "Monster Hunter được chuyển thể từ series game nổi tiếng cùng tên của Capcom. Trong phim, đội trưởng Artemis của nữ diễn viên Milla Jovovich (Resident Evil) và đồng đội đã vô tình bước qua một cánh cửa bí ẩn dẫn tới thế giới khác. Tại đây, họ phải chiến đấu với nhiều loài quái vật khổng lồ trong hành trình trở về thế giới. Đồng hành với họ trong trận chiến là nhân vật “Thợ săn” của nam diễn viên Tony Jaa (Ong Bak). Monster Hunter hứa hẹn sẽ là bom tấn hành động với những màn săn quái vật khổng lồ hoành tráng nhất năm 2020.",
-            "maNhom": "GP01",
-            "ngayKhoiChieu": "2021-10-22T08:00:41.173",
+    arrFilm: [{
+            "maPhim": 8347,
+            "tenPhim": "What If… ?",
+            "biDanh": "what-if…-",
+            "trailer": "x9D0uUKJ5KI",
+            "hinhAnh": "http://movieapi.cyberlearn.vn/hinhanh/what-if…-_gp13.jpg",
+            "moTa": "“What If… ?” features fan-favorite characters, including Peggy Carter, T’Challa, Doctor Strange, Killmonger, Thor and more. The new series, directed by Bryan Andrews with AC Bradley as head writer, features signature MCU action with a curious twist.",
+            "maNhom": "GP13",
+            "ngayKhoiChieu": "2021-08-11T00:00:00",
             "danhGia": 10,
             "hot": true,
-            "dangChieu": false,
+            "dangChieu": true,
             "sapChieu": false
         },
         {
-            "maPhim": 5163,
-            "tenPhim": "Thợ Săn Quái Vật - Monster Hunter",
-            "biDanh": "tho-san-quai-vat-monster-hunter",
-            "trailer": "https://www.youtube.com/embed/puQyZsaTtqY",
-            "hinhAnh": "https://movienew.cybersoft.edu.vn/hinhanh/tho-san-quai-vat-monster-hunter_gp01.png",
-            "moTa": "Monster Hunter được chuyển thể từ series game nổi tiếng cùng tên của Capcom. Trong phim, đội trưởng Artemis của nữ diễn viên Milla Jovovich (Resident Evil) và đồng đội đã vô tình bước qua một cánh cửa bí ẩn dẫn tới thế giới khác. Tại đây, họ phải chiến đấu với nhiều loài quái vật khổng lồ trong hành trình trở về thế giới. Đồng hành với họ trong trận chiến là nhân vật “Thợ săn” của nam diễn viên Tony Jaa (Ong Bak). Monster Hunter hứa hẹn sẽ là bom tấn hành động với những màn săn quái vật khổng lồ hoành tráng nhất năm 2020.",
-            "maNhom": "GP01",
-            "ngayKhoiChieu": "2021-10-22T08:00:41.173",
+            "maPhim": 8348,
+            "tenPhim": "Loki",
+            "biDanh": "loki",
+            "trailer": "nW948Va-l10",
+            "hinhAnh": "http://movieapi.cyberlearn.vn/hinhanh/loki_gp13.jpg",
+            "moTa": "The mercurial villain Loki resumes his role as the God of Mischief in a new series that takes place after the events of “Avengers: Endgame.”",
+            "maNhom": "GP13",
+            "ngayKhoiChieu": "2021-06-10T00:00:00",
             "danhGia": 10,
             "hot": true,
-            "dangChieu": false,
+            "dangChieu": true,
             "sapChieu": false
         }
-    ]
+    ],
+    dangChieu: true,
+    sapChieu: true,
+    //backup lai phim
+    arrFilmDefault: []
 }
 
-export const QuanLyPhimReducer = (state =stateDefault,action) => {
-    switch(action.type){
-        case SET_DANH_SACH_PHIM :{
-            state.arrFilm = action.arrFilm
-            return {...state}
-        }
-        default:return {...state}
+export const QuanLyPhimReducer = (state = stateDefault, action) => {
+    switch (action.type) {
+        case SET_DANH_SACH_PHIM:
+            {
+                state.arrFilm = action.arrFilm;
+                state.arrFilmDefault = state.arrFilm;
+                return {...state }
+            }
+        case SET_FILM_DANG_CHIEU:
+            {
+                state.dangChieu = !state.dangChieu;
+
+                state.arrFilm = state.arrFilmDefault.filter(film => film.dangChieu === state.dangChieu)
+                return {...state }
+            }
+        case SET_FILM_SAP_CHIEU:
+            {
+                state.sapChieu = !state.sapChieu;
+                state.arrFilm = state.arrFilmDefault.filter(film => film.sapChieu === state.sapChieu)
+                return {...state }
+            }
+        default:
+            return {...state }
     }
 }

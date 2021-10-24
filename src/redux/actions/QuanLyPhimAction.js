@@ -1,10 +1,10 @@
-import { QuanLyPhimService } from "../../Service/QuanLyPhimService";
+import { quanLyPhimService } from "../../Service/QuanLyPhimService";
 import { SET_DANH_SACH_PHIM } from "./types/QuanLyPhimType";
 
 export const layDanhSachPhimAction = () => {
     return async (dispatch)=>{
         try{
-            const result = await QuanLyPhimService.layDanhSachPhim();
+            const result = await quanLyPhimService.layDanhSachPhim();
             dispatch({
                 type: SET_DANH_SACH_PHIM,
                 arrFilm:result.data.content
